@@ -1,0 +1,9 @@
+Les étapes que nous avons pu réaliser sur ce projet sont : la première partie, nous avons créé une class NaiveVmAllocationPolicy 
+qui permet de mettre en place un ordonnanceur qui sert à découvrir l'API Cloud SIM tout en prenant en considération l’affectation
+des VM aux hôtes les plus convenables selon leur capacité, puis on a essayé de respecter le Service-level agreement (SLA) 
+à travers l'amélioration de notre ordonnanceur  pour éviter les pénalités qui peuvent se produire si jamais l'utilisation des 
+VMs dépasse ce que nous avons prévu en termes de consommation de mémoire et temps d'exécution après la phase de test nous nous 
+sommes rassuré du bon fonctionnement de l'ordonnanceur lors du choix du  mode antiAffinity car il affecte chaque VM qui 
+appartient à la même catégorie dans un hôte différent et nous avons aussi conclu que l'observer s'exécute d'une manière 
+périodique au fur et à mesure de l'exécution du processus car nous avons jamais rencontré des erreurs vue l'implémentation 
+solide du l'ordonnanceur antiAffinity.
