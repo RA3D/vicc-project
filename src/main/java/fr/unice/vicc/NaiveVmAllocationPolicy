@@ -1,0 +1,68 @@
+package fr.unice.vicc;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.cloudbus.cloudsim.Host;
+import org.cloudbus.cloudsim.Vm;
+import org.cloudbus.cloudsim.VmAllocationPolicy;
+
+public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
+	
+		private Map<String, Host> vmTable;
+		public NaiveVmAllocationPolicy (List<? extends Host> list) {
+			super(list);
+			vmTable = new HashMap<>();
+		}
+		public Host getHost(Vm vm){
+			return this.vmTable.get(vm.getUid());
+			
+		}
+		public Host getHost(int vmID, int userID){
+			return this.vmTable.get(Vm.getUid(userID, vmID)); 
+   		}
+
+		public boolean allocateHostForVM(Vm vm, Host host){
+			if (host.vmCreate(vm)){
+				vmTable.put(vm.getUid(), host);
+			}
+			return false;
+		}
+		public void deallocateHostForVm(Vm vm, Host host){
+			vmTable.remove(vm.getUid());
+			host.vmDestroy(vm);
+			
+		}
+		public static Object optimizeAllocation () { return null;
+		
+		}
+		public boolean allocateHostForVm(Vm vm){
+			for (Host h: getHostList()){
+				if (h.vmCreate(vm)){
+					vmTable.put(vm.getUid(), h);
+					return true;
+					
+				}
+			}
+			return false;
+		}
+		@Override
+		public boolean allocateHostForVm(Vm arg0, Host arg1) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		@Override
+		public void deallocateHostForVm(Vm arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public List<Map<String, Object>> optimizeAllocation(
+				List<? extends Vm> arg0) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	
+
+}
